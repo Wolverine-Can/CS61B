@@ -9,7 +9,7 @@ public class BasicInDemo {
 
 		/* Compare the calls below to the contents of BasicInDemo_input_file.txt */
 
-		int firstItemInFile = in.readInt();
+		double firstItemInFile = in.readDouble();
 		double secondItemInFile = in.readDouble();
 		String thirdItemInFile = in.readString();
 		String fourthItemInFile = in.readString();
