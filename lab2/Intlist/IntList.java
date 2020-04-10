@@ -109,6 +109,9 @@ public class IntList {
             E = E.rest;
             D = D.rest;
         }
+        if (B == null) {
+            return C;
+        }
         D.rest = new IntList(B.first, null);
         D = D.rest;
         while(F.rest != null){
