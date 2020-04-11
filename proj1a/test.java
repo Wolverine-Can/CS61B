@@ -1,5 +1,5 @@
 public class test {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         ArrayDeque a = new ArrayDeque();
         a.addFirst(1);
         a.addFirst(2);
@@ -21,7 +21,5 @@ public class test {
         a.removeFirst();
         a.removeLast();
         a.printDeque();
-            System.out.print(a.items[7]);
     }
-
 }

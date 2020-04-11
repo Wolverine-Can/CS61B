@@ -10,14 +10,7 @@ public class ArrayDeque<T> {
         nextFirst = 3;
         nextLast = 4;
     }
-    public ArrayDeque(T x) {
-        items = (T[]) new Object[8];
-        items[nextFirst] = x;
-        size = 1;
-        nextFirst = 2;
-        nextLast = 4;
-    }
-    public void resize(int capacity) {
+    private void resize(int capacity) {
         T[] newitems = (T[]) new Object[capacity];
         if (items.length - nextFirst > size) {
             System.arraycopy(items, nextFirst + 1, newitems, 0, size);
@@ -73,34 +66,54 @@ public class ArrayDeque<T> {
     }
     public T removeFirst() {
         T returnvalue;
-        if (nextFirst == items.length - 1) {
+        if (size == 0) {
+            return null;
+        } else if (nextFirst == items.length - 1) {
             returnvalue = items[0];
             items[0] = null;
             nextFirst = 0;
+            size -= 1;
+            if (items.length > 4 * size) {
+                resize(2 * size);
+            }
+            return returnvalue;
         } else {
             returnvalue = items[nextFirst + 1];
             items[nextFirst + 1] = null;
             nextFirst += 1;
+            size -= 1;
+            if (items.length > 4 * size) {
+                resize(2 * size);
+            }
+            return returnvalue;
         }
-        size -= 1;
-        return returnvalue;
     }
     public T removeLast() {
         T returnvalue;
-        if (nextLast == 0) {
+        if (size == 0) {
+            return null;
+        } else if (nextLast == 0) {
             returnvalue = items[items.length - 1];
             items[items.length - 1] = null;
             nextLast = items.length - 1;
+            size -= 1;
+            if (items.length > 4 * size) {
+                resize(2 * size);
+            }
+            return returnvalue;
         } else {
             returnvalue = items[nextLast - 1];
             items[nextLast - 1] = null;
             nextLast -= 1;
+            size -= 1;
+            if (items.length > 4 * size) {
+                resize(2 * size);
+            }
+            return returnvalue;
         }
-        size -= 1;
-        return returnvalue;
     }
     public T get(int index) {
-        if (size == 0) {
+        if (size == 0 || (index + 1 > size)) {
             return null;
         }
         resize(size);
