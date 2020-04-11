@@ -1,4 +1,4 @@
-public class test {
+public class Test {
     public static void main(String[] args) {
         ArrayDeque a = new ArrayDeque();
         a.addFirst(1);
@@ -20,6 +20,25 @@ public class test {
         a.addFirst(17);
         a.removeFirst();
         a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.removeFirst();
+        a.removeFirst();
+        a.removeFirst();
+
+
+
         a.printDeque();
     }
 }
