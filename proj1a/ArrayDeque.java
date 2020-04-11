@@ -116,7 +116,7 @@ public class ArrayDeque<T> {
         if (size == 0 || (index + 1 > size)) {
             return null;
         }
-        resize(size);
+        resize(size * 2);
         return items[index];
     }
 
