@@ -1,15 +1,27 @@
 public class test {
     public static void main(String[] args){
-        LinkedListDeque x = new LinkedListDeque(2);
-        x.addFirst("aa");
-        x.addLast("bb");
-        System.out.println(x.sentinel.prev.item);
-        System.out.println(x.isEmpty());
-        System.out.println(x.size);
-        x.printDeque();
-        System.out.println(x.getRecursive(0));
-        LinkedListDeque y = new LinkedListDeque(x);
-        y.printDeque();
-        System.out.println(x.sentinel.next.next.item==y.sentinel.next.next.item);
+        ArrayDeque a = new ArrayDeque();
+        a.addFirst(1);
+        a.addFirst(2);
+        a.addFirst(3);
+        a.addFirst(4);
+        a.addFirst(5);
+        a.addFirst(6);
+        a.addFirst(7);
+        a.addFirst(8);
+        a.addLast(9);
+        a.addLast(10);
+        a.addLast(11);
+        a.addLast(12);
+        a.addLast(13);
+        a.addLast(14);
+        a.addLast(15);
+        a.addLast(16);
+        a.addFirst(17);
+        a.removeFirst();
+        a.removeLast();
+        a.printDeque();
+            System.out.print(a.items[7]);
     }
+
 }
