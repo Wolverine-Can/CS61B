@@ -126,6 +126,9 @@ public class IntList {
     }
 
     public static IntList reverse(IntList A) {
+        if (A == null) {
+            return null;
+        }
         if (A.rest == null) {
             return A;
         }
