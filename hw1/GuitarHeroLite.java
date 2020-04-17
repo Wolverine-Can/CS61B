@@ -23,7 +23,7 @@ public class GuitarHeroLite {
             /* check if the user has typed a key; if so, process it */
             if (StdDraw.hasNextKeyTyped()) {
                 char key = StdDraw.nextKeyTyped();
-                switch(key){
+                switch (key) {
                     case'1': stringC.pluck(); break;
                     case'2': stringD.pluck(); break;
                     case'3': stringE.pluck(); break;
@@ -31,12 +31,15 @@ public class GuitarHeroLite {
                     case'5': stringG.pluck(); break;
                     case'6': stringA.pluck(); break;
                     case'7': stringB.pluck(); break;
+                    default: System.out.println("wrong key");
                 }
             }
 
         /* compute the superposition of samples */
-            double sample = stringA.sample() + stringB.sample() + stringC.sample() + stringD.sample() + stringE.sample()
-                    + stringF.sample() + stringG.sample();
+            double sample = stringA.sample() + stringB.sample()
+                    + stringC.sample() + stringD.sample()
+                    + stringE.sample() + stringF.sample()
+                    + stringG.sample();
 
         /* play the sample on standard audio */
             StdAudio.play(sample);

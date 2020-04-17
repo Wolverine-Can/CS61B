@@ -70,7 +70,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      */
     public T dequeue() {
         if (isEmpty()) {
-            throw  new RuntimeException("Ring Buffer Underflow");
+            throw new RuntimeException("Ring Buffer Underflow");
         }
         T returnValue = rb[first];
         rb[first] = null;
@@ -86,6 +86,9 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      * Return oldest item, but don't remove it.
      */
     public T peek() {
+        if (isEmpty()) {
+            throw new RuntimeException("Ring Buffer Underflow");
+        }
         return rb[first];
     }
 }
