@@ -9,7 +9,6 @@ import lab9.BSTMap;
  * Tests by Brendan Hu, Spring 2015, revised for 2018 by Josh Hug
  */
 public class TestBSTMap {
-
     @Test
     public void sanityGenericsTest() {
         try {
@@ -21,6 +20,7 @@ public class TestBSTMap {
             fail();
         }
     }
+
 
     //assumes put/size/containsKey/get work
     @Test
