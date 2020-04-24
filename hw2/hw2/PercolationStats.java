@@ -9,8 +9,8 @@ public class PercolationStats {
     private int times;
     private int siteN;
     public PercolationStats(int N, int T, PercolationFactory pf) {
-        if (N < 0) {
-            throw new IllegalArgumentException("N must be positive");
+        if (N <= 0 || T <= 0) {
+            throw new IllegalArgumentException("N and T must be positive");
         }
         times = T;
         siteN = N * N;
