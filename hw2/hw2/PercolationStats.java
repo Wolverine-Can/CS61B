@@ -3,11 +3,11 @@ import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
 
 public class PercolationStats {
-    double [] x;
-    double meanX;
-    double stdDev;
-    int times;
-    int siteN;
+    private double [] x;
+    private double meanX;
+    private double stdDev;
+    private int times;
+    private int siteN;
     public PercolationStats(int N, int T, PercolationFactory pf) {
         times = T;
         siteN = N * N;
@@ -21,7 +21,7 @@ public class PercolationStats {
                 col = n % N;
                 p.open(row, col);
             }
-            x[i] = (double) p.numberOfOpenSites / siteN;
+            x[i] = (double) p.numberOfOpenSites() / siteN;
         }
         meanX = mean();
         stdDev = stddev();

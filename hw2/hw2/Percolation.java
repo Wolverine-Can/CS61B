@@ -5,13 +5,13 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 import java.util.Arrays;
 
 public class Percolation {
-    boolean [] siteStatus;
-    WeightedQuickUnionUF sites;
-    WeightedQuickUnionUF sitesWithoutBot;
-    int gridNumber;
-    int virtualTop;
-    int virtualBot;
-    int numberOfOpenSites = 0;
+    private boolean [] siteStatus;
+    private WeightedQuickUnionUF sites;
+    private WeightedQuickUnionUF sitesWithoutBot;
+    private int gridNumber;
+    private int virtualTop;
+    private int virtualBot;
+    private int numberOfOpenSites = 0;
     public Percolation(int N) {
         if (N < 0) {
             throw new java.lang.IllegalArgumentException("N must be positive");
@@ -72,7 +72,7 @@ public class Percolation {
         if (outOfBounds(row, col)) {
             throw new IllegalArgumentException("out of bounds");
         }
-        return sitesWithoutBot.connected(sitesToN(row, col), virtualTop);
+        return isOpen(row, col) && sitesWithoutBot.connected(sitesToN(row, col), virtualTop);
     }
     public int numberOfOpenSites() {
         return numberOfOpenSites;
@@ -81,11 +81,7 @@ public class Percolation {
         return sites.connected(virtualTop, virtualBot);
     }
     public static void main(String[] args) {
-        long start = System.currentTimeMillis();
-        PercolationFactory W = new PercolationFactory();
-        PercolationStats A = new PercolationStats(100, 100, W);
-        System.out.println(A.meanX);
-        long now = System.currentTimeMillis();
-        System.out.println(now - start);
+        Percolation A = new Percolation(5);
+        System.out.println(A.isOpen(0,0));
     }
 }
