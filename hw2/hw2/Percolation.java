@@ -38,7 +38,7 @@ public class Percolation {
 
     public void open(int row, int col) {
         if (outOfBounds(row, col)) {
-            throw new IllegalArgumentException("out of bounds");
+            throw new IndexOutOfBoundsException("out of bounds");
         }
         if (isOpen(row, col)) {
             return;
@@ -64,13 +64,13 @@ public class Percolation {
     }
     public boolean isOpen(int row, int col) {
         if (outOfBounds(row, col)) {
-            throw new IllegalArgumentException("out of bounds");
+            throw new IndexOutOfBoundsException("out of bounds");
         }
         return siteStatus[sitesToN(row, col)];
     }
     public boolean isFull(int row, int col) {
         if (outOfBounds(row, col)) {
-            throw new IllegalArgumentException("out of bounds");
+            throw new IndexOutOfBoundsException("out of bounds");
         }
         return isOpen(row, col) && sitesWithoutBot.connected(sitesToN(row, col), virtualTop);
     }
@@ -78,10 +78,8 @@ public class Percolation {
         return numberOfOpenSites;
     }
     public boolean percolates() {
-        return sites.connected(virtualTop, virtualBot);
+        return numberOfOpenSites > 0 && sites.connected(virtualTop, virtualBot);
     }
     public static void main(String[] args) {
-        Percolation A = new Percolation(5);
-        System.out.println(A.isOpen(0,0));
     }
 }

@@ -9,6 +9,9 @@ public class PercolationStats {
     private int times;
     private int siteN;
     public PercolationStats(int N, int T, PercolationFactory pf) {
+        if (N < 0) {
+            throw new IllegalArgumentException("N must be positive");
+        }
         times = T;
         siteN = N * N;
         x = new double[T];
@@ -35,7 +38,7 @@ public class PercolationStats {
         return stdDev;
     }
     public double confidenceLow() {
-        return meanX + 1.96 * stdDev / Math.sqrt(times);
+        return meanX - 1.96 * stdDev / Math.sqrt(times);
     }
     public double confidenceHigh() {
         return meanX + 1.96 * stdDev / Math.sqrt(times);
