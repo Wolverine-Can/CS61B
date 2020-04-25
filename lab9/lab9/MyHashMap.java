@@ -122,6 +122,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return remove(key);
     }
 
+    /** my Iterator
     private class HashMapIterator implements Iterator<K> {
         private int Pos;
         public ArrayList<K> keySetArray;
@@ -142,10 +143,10 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
             Pos += 1;
             return returnItem;
         }
-    }
+    }*/
 
     @Override
     public Iterator<K> iterator() {
-        return new HashMapIterator();
+        return keySet().iterator();
     }
 }
