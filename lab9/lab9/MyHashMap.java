@@ -1,7 +1,6 @@
 package lab9;
 
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  *  A hash table-backed Map implementation. Provides amortized constant time
@@ -89,7 +88,13 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> keySet = new HashSet<K>();
+        for (ArrayMap<K, V> bucket : buckets) {
+            for (K keys : bucket) {
+                keySet.add(keys);
+            }
+        }
+        return keySet;
     }
 
     /* Removes the mapping for the specified key from this map if exists.
@@ -97,7 +102,13 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * UnsupportedOperationException. */
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        if (!containsKey(key)) {
+            return null;
+        }
+        V returnValue = get(key);
+        buckets[hash(key)].remove(key);
+        size -= 1;
+        return returnValue;
     }
 
     /* Removes the entry for the specified key only if it is currently mapped to
@@ -105,11 +116,36 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * throw an UnsupportedOperationException.*/
     @Override
     public V remove(K key, V value) {
-        throw new UnsupportedOperationException();
+        if (!get(key).equals(value)) {
+            return null;
+        }
+        return remove(key);
+    }
+
+    private class HashMapIterator implements Iterator<K> {
+        private int Pos;
+        public ArrayList<K> keySetArray;
+
+
+        public HashMapIterator() {
+            Pos = 0;
+            keySetArray = new ArrayList<>(keySet().size());
+            keySetArray.addAll(keySet());
+        }
+
+        public boolean hasNext() {
+            return Pos < size;
+        }
+
+        public K next() {
+            K returnItem = keySetArray.get(Pos);
+            Pos += 1;
+            return returnItem;
+        }
     }
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        return new HashMapIterator();
     }
 }
