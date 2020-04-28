@@ -117,11 +117,12 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      * Bubbles down the node currently at the given index.
      */
     private void sink(int index) {
-        // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
-        validateSinkSwimArg(index);
         if (!inBounds(leftIndex(index))) {
             return;
         }
+        // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
+        validateSinkSwimArg(index);
+
         if (inBounds(rightIndex(index))) {
             if (getNode(index).priority() < getNode(leftIndex(index)).priority()
                     && getNode(index).priority() < getNode(rightIndex(index)).priority()) {
