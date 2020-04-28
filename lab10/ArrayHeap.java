@@ -182,7 +182,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         T removeItem = contents[size].item();
         contents[size] = null;
         size -= 1;
-        sink(1);
+        if (size > 0) {
+            sink(1);
+        }
         return removeItem;
     }
 
