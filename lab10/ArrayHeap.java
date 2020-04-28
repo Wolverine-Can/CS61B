@@ -176,6 +176,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T removeMin() {
+        validateSinkSwimArg(1);
         swap(1, size);
         T removeItem = contents[size].item();
         contents[size] = null;
@@ -208,8 +209,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             i++;
         }
         if (contents[i].priority() > priority) {
+            contents[i].myPriority = priority;
             swim(i);
         }
+        contents[i].myPriority = priority;
         sink(i);
     }
 
