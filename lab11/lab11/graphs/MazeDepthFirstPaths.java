@@ -14,7 +14,6 @@ public class MazeDepthFirstPaths extends MazeExplorer {
     private boolean targetFound = false;
     private Maze maze;
 
-
     public MazeDepthFirstPaths(Maze m, int sourceX, int sourceY, int targetX, int targetY) {
         super(m);
         maze = m;
