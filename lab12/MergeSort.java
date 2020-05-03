@@ -34,8 +34,13 @@ public class MergeSort {
     /** Returns a queue of queues that each contain one item from items. */
     private static <Item extends Comparable> Queue<Queue<Item>>
             makeSingleItemQueues(Queue<Item> items) {
-        // Your code here!
-        return null;
+        Queue<Queue<Item>> singleItemQueues = new Queue<>();
+        for (Item item: items) {
+            Queue<Item> singleItemQueue = new Queue<>();
+            singleItemQueue.enqueue(item);
+            singleItemQueues.enqueue(singleItemQueue);
+        }
+        return singleItemQueues;
     }
 
     /**
@@ -53,14 +58,48 @@ public class MergeSort {
      */
     private static <Item extends Comparable> Queue<Item> mergeSortedQueues(
             Queue<Item> q1, Queue<Item> q2) {
-        // Your code here!
-        return null;
+        Queue<Item> mergedQueue = new Queue<>();
+        while (!q1.isEmpty() || !q2.isEmpty()) {
+            mergedQueue.enqueue(getMin(q1, q2));
+        }
+        return mergedQueue;
     }
 
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
-        // Your code here!
-        return items;
+        if (items.size() < 2) {
+            return items;
+        }
+        Queue<Item> mergedQueue = new Queue<>();
+        Queue<Item> leftHalf = new Queue<>();
+        Queue<Item> rightHalf;
+        int size = items.size();
+        for (Item item : items) {
+            mergedQueue.enqueue(item);
+        }
+        for (int i = 0; i < size / 2; i++) {
+            leftHalf.enqueue(mergedQueue.dequeue());
+        }
+        rightHalf = mergedQueue;
+        mergedQueue = mergeSortedQueues(mergeSort(leftHalf), mergeSort(rightHalf));
+        return mergedQueue;
+    }
+    public static void main(String[] args) {
+        Queue<String> champions = new Queue<String>();
+        champions.enqueue("Can");
+        champions.enqueue("Sin");
+        champions.enqueue("Lux");
+        champions.enqueue("Zed");
+        champions.enqueue("Darius");
+        champions.enqueue("Yasuo");
+        Queue<String> sortedChampions = MergeSort.mergeSort(champions);
+        for (String champion: champions) {
+            System.out.print(champion + " ");
+        }
+        System.out.println(" ");
+        for (String champion: sortedChampions) {
+            System.out.print(champion + " ");
+        }
     }
 }
