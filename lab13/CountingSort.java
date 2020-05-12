@@ -65,63 +65,25 @@ public class CountingSort {
      *
      * @param arr int array that will be sorted
      */
+
     public static int[] betterCountingSort(int[] arr) {
-        // find max and min
-        int max = Integer.MIN_VALUE;
-        int min = Integer.MAX_VALUE;
-        for (int i : arr) {
-            max = Math.max(max, i);
-            min = Math.min(min, i);
-        }
-        // gather all the counts for each value
-        int[] counts;
-        if (min < 0) {
-            counts = new int[max - min + 1];
-        } else {
-            counts = new int[max + 1];
-        }
-        for (int i : arr) {
-            if (i >= 0) {
-                counts[i]++;
-            } else {
-                counts[i + (max - min + 1)]++;
-            }
-        }
-        // however, below is a more proper, generalized implementation of
-        // counting sort that uses start position calculation
-        int[] starts;
-        if (min < 0) {
-            starts = new int[max - min + 1];
-        } else {
-            starts = new int[max + 1];
-        }
-
-        int pos = 0;
-        for (int i = max + 1; i < starts.length; i += 1) {
-            starts[i] = pos;
-            pos += counts[i];
-        }
-        for (int i = 0; i < max + 1; i += 1) {
-            starts[i] = pos;
-            pos += counts[i];
-        }
-
         int[] sorted = new int[arr.length];
-        for (int i = 0; i < arr.length; i += 1) {
-            if (arr[i] >= 0) {
-                int item = arr[i];
-                int place = starts[item];
-                sorted[place] = item;
-                starts[item] += 1;
-            } else {
-                int item = arr[i];
-                int place = starts[item + max - min + 1];
-                sorted[place] = item;
-                starts[item + max - min + 1] += 1;
-            }
-
+        int max = 0;
+        for (int i = 0; i < sorted.length; i++) {
+            max = Math.max(Math.abs(arr[i]), max);
         }
-        // return the sorted array
+        int[] counts = new int[max*2 + 1];
+
+        for (int i : arr) {
+            counts[i + max]++;
+        }
+
+        int k = 0;
+        for (int i = 0; i < counts.length; i += 1) {
+            for (int j = 0; j < counts[i]; j += 1, k += 1) {
+                sorted[k] = i - max;
+            }
+        }
         return sorted;
     }
 }
