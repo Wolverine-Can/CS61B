@@ -16,10 +16,17 @@ public class RadixSort {
      * @return String[] the sorted array
      */
     public static String[] sort(String[] asciis) {
-        // TODO: Implement LSD Sort
-        return null;
+        String[] sorted = new String[asciis.length];
+        int maxLength = 0;
+        System.arraycopy(asciis, 0, sorted, 0, asciis.length);
+        for (String s : asciis) {
+            maxLength = Math.max(maxLength, s.length());
+        }
+        for (int i = 0;i < maxLength; i++) {
+            sortHelperLSD(sorted, i);
+        }
+        return sorted;
     }
-
     /**
      * LSD helper method that performs a destructive counting sort the array of
      * Strings based off characters at a specific index.
@@ -27,8 +34,31 @@ public class RadixSort {
      * @param index The position to sort the Strings on.
      */
     private static void sortHelperLSD(String[] asciis, int index) {
-        // Optional LSD helper method for required LSD radix sort
-        return;
+        int[] count = new int[256];
+        int[] start = new int[256];
+        String[] sorted = new String[asciis.length];
+        for (String s : asciis) {
+            if (s.length() - index <= 0) {
+                count[0] += 1;
+            } else {
+                count[(int) s.charAt(s.length() - 1 - index)] += 1;
+            }
+        }
+        start[0] = count[0];
+        for(int i = 1; i < count.length; i++) {
+            start[i] = count[i] + start[i - 1];
+        }
+        for (int i = asciis.length - 1; i >= 0; i--) {
+            String s = asciis[i];
+            if ((s.length() - index <= 0)) {
+                start[0] -= 1;
+                sorted[start[0]] = s;
+            } else {
+                start[(int) s.charAt(s.length() - 1 - index)] -= 1;
+                sorted[start[(int) s.charAt(s.length() - 1 - index)]] = s;
+            }
+        }
+        System.arraycopy(sorted, 0, asciis, 0, sorted.length);
     }
 
     /**
