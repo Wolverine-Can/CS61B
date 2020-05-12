@@ -56,6 +56,9 @@ public class RadixSort {
             if ((s.length() - index <= 0)) {
                 start[0] -= 1;
                 sorted[start[0]] = s;
+            } else if (s.charAt(s.length() - 1 - index) > 255) {
+                start[255] -= 1;
+                sorted[start[255]] = s;
             } else {
                 start[s.charAt(s.length() - 1 - index)] -= 1;
                 sorted[start[s.charAt(s.length() - 1 - index)]] = s;
