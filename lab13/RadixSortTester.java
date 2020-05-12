@@ -6,8 +6,8 @@ public class RadixSortTester {
     String[] expected1 = {"aad", "abc", "abc", "abd", "acd", "bac", "xyz"};
     String[] original2 = {"abc", "abd", "ac", "bac", "abc", "xyz", "candeng"};
     String[] expected2 = {"abc", "abc", "abd", "ac", "bac", "candeng", "xyz"};
-    String[] original3 = {"cat", "dog", "apple", "pig", "smart", "dumb", "candeng"};
-    String[] expected3 = {"apple", "candeng", "cat", "dog", "dumb", "pig", "smart"};
+    String[] original3 = {"","cat", "dog", "apple", "pig", "smart", "dumb", "candeng"};
+    String[] expected3 = {"","apple", "candeng", "cat", "dog", "dumb", "pig","smart"};
 
     @Test
     public void test() {

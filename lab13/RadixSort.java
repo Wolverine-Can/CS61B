@@ -39,7 +39,7 @@ public class RadixSort {
         String[] sorted = new String[asciis.length];
         for (String s : asciis) {
             if (maxLength - index  > s.length()) {
-                count[s.charAt(0)] += 1;
+                count[0] += 1;
             } else {
                 count[s.charAt(maxLength - 1 - index)] += 1;
             }
@@ -51,8 +51,8 @@ public class RadixSort {
         for (int i = asciis.length - 1; i >= 0; i--) {
             String s = asciis[i];
             if (maxLength - index  > s.length()) {
-                start[s.charAt(0)] -= 1;
-                sorted[start[s.charAt(0)]] = s;
+                start[0] -= 1;
+                sorted[start[0]] = s;
             } else {
                 start[s.charAt(maxLength - 1 - index)] -= 1;
                 sorted[start[s.charAt(maxLength - 1 - index)]] = s;
