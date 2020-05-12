@@ -22,7 +22,7 @@ public class RadixSort {
         for (String s : asciis) {
             maxLength = Math.max(maxLength, s.length());
         }
-        for (int i = 0;i < maxLength; i++) {
+        for (int i = 0; i < maxLength; i++) {
             sortHelperLSD(sorted, i);
         }
         return sorted;
@@ -40,8 +40,11 @@ public class RadixSort {
         for (String s : asciis) {
             if (s.length() - index <= 0) {
                 count[0] += 1;
-            } else {
-                count[(int) s.charAt(s.length() - 1 - index)] += 1;
+            } else if (s.charAt(s.length() - 1 - index) > 255) {
+                count[255] += 1;
+            }
+            else {
+                count[s.charAt(s.length() - 1 - index)] += 1;
             }
         }
         start[0] = count[0];
@@ -54,8 +57,8 @@ public class RadixSort {
                 start[0] -= 1;
                 sorted[start[0]] = s;
             } else {
-                start[(int) s.charAt(s.length() - 1 - index)] -= 1;
-                sorted[start[(int) s.charAt(s.length() - 1 - index)]] = s;
+                start[s.charAt(s.length() - 1 - index)] -= 1;
+                sorted[start[s.charAt(s.length() - 1 - index)]] = s;
             }
         }
         System.arraycopy(sorted, 0, asciis, 0, sorted.length);
