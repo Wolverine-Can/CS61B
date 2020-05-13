@@ -21,15 +21,18 @@ public class SeamCarver {
             throw new java.lang.IndexOutOfBoundsException("out of bounds");
         }
         double xEnergy, yEnergy;
-        if (x == 0) {
+        if (picture.width() == 1) {
+            xEnergy = 0;
+        } else if (x == 0) {
             xEnergy = xEnergyHelper(1, picture.width() - 1, y);
         } else if (x == picture.width() - 1) {
             xEnergy = xEnergyHelper(picture.width() - 2, 0, y);
         } else {
             xEnergy = xEnergyHelper(x + 1, x - 1, y);
         }
-
-        if (y == 0) {
+        if (picture.height() == 1) {
+            yEnergy = 0;
+        } else if (y == 0) {
             yEnergy = yEnergyHelper(1, picture.height() - 1, x);
         } else if (y == picture.height() - 1) {
             yEnergy = yEnergyHelper(picture.height() - 2, 0, x);
