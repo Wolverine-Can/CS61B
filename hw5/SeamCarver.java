@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class SeamCarver {
     private Picture picture;
     public SeamCarver(Picture picture) {
-        this.picture = picture;
+        this.picture = new Picture(picture) ;
     }
     public Picture picture() {
         return picture;
@@ -113,7 +113,11 @@ public class SeamCarver {
         return minIndex;
     }
 
-    public void removeHorizontalSeam(int[] seam) {}
-    public void removeVerticalSeam(int[] seam){}
+    public void removeHorizontalSeam(int[] seam) {
+        SeamRemover.removeHorizontalSeam(picture, seam);
+    }
+    public void removeVerticalSeam(int[] seam){
+        SeamRemover.removeVerticalSeam(picture, seam);
+    }
 
 }
