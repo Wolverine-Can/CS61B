@@ -1,16 +1,13 @@
 package creatures;
+
 import huglife.*;
 
-import java.awt.Color;
-import java.util.Map;
+import java.awt.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
-/** An implementation of a motile pacifist photosynthesizer.
- *  @author Josh Hug
- */
-public class Plip extends Creature {
-
+public class Clorus extends Creature {
     /** red color. */
     private int r;
     /** green color. */
@@ -25,17 +22,17 @@ public class Plip extends Creature {
     private double repEnergyGiven = 0.5;
 
     /** creates plip with energy equal to E. */
-    public Plip(double e) {
-        super("plip");
+    public Clorus(double e) {
+        super("clorus");
         energy = e;
-        r = 99;
-        g = 63 + (int) Math.round(energy / 2 * (255 - 63));
-        b = 76;
+        r = 34;
+        g = 0;
+        b = 231;
 
     }
 
     /** creates a plip with energy equal to 1. */
-    public Plip() {
+    public Clorus() {
         this(1);
     }
 
@@ -47,37 +44,25 @@ public class Plip extends Creature {
      *  that you get this exactly correct.
      */
     public Color color() {
-        g = 63 + (int) Math.round(energy() / 2 * (255 - 63));
         return color(r, g, b);
     }
 
     /** Do nothing with C, Plips are pacifists. */
     public void attack(Creature c) {
+        energy += c.energy();
     }
-
-    /** Plips should lose 0.15 units of energy when moving. If you want to
-     *  to avoid the magic number warning, you'll need to make a
-     *  private static final variable. This is not required for this lab.
-     */
     public void move() {
-        energy -= 0.15;
+        energy -= 0.03;
     }
 
-
-    /** Plips gain 0.2 energy when staying due to photosynthesis. */
     public void stay() {
-        energy += 0.2;
-        energy = Math.min(energy, 2);
+        energy -= 0.01;
     }
 
-    /** Plips and their offspring each get 50% of the energy, with none
-     *  lost to the process. Now that's efficiency! Returns a baby
-     *  Plip.
-     */
-    public Plip replicate() {
+    public Clorus replicate() {
         energy = energy * repEnergyRetained;
         double babyEnergy = energy * repEnergyGiven;
-        return new Plip(babyEnergy);
+        return new Clorus(babyEnergy);
     }
 
     /** Plips take exactly the following actions based on NEIGHBORS:
@@ -91,19 +76,19 @@ public class Plip extends Creature {
      *  for an example to follow.
      */
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
-        Random random = new Random();
-        List<Direction> empties = getNeighborsOfType(neighbors, "empty");
-        List<Direction> clorus = getNeighborsOfType(neighbors, "clorus");
+        java.util.List<Direction> empties = getNeighborsOfType(neighbors, "empty");
+        List<Direction> plips = getNeighborsOfType(neighbors, "plip");
         if (empties.size() == 0) {
             return new Action(Action.ActionType.STAY);
-        } else if (energy() > 1) {
+        } else if (plips.size() > 0) {
+            Direction attDir = HugLifeUtils.randomEntry(plips);
+            return new Action(Action.ActionType.ATTACK, attDir);
+        } else if (energy() >= 1) {
             Direction repDir = HugLifeUtils.randomEntry(empties);
             return new Action(Action.ActionType.REPLICATE, repDir);
-        } else if (clorus.size() > 0) {
+        } else {
             Direction moveDir = HugLifeUtils.randomEntry(empties);
             return new Action(Action.ActionType.MOVE, moveDir);
         }
-        return new Action(Action.ActionType.STAY);
     }
-
 }
