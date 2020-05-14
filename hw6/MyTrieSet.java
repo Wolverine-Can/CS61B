@@ -87,6 +87,24 @@ public class MyTrieSet implements TrieSet61B{
         }
         return keysWithPrefix;
     }
+    public Boolean hasPrefix(String prefix) {
+        if (prefix == null || prefix.length() < 1) {
+            return false;
+        }
+        Node curr = root;
+        for (int i = 0, n = prefix.length(); i < n; i++) {
+            char c = prefix.charAt(i);
+            if (!curr.map.containsKey(c)) {
+                return false;
+            }
+            curr = curr.map.get(c);
+        }
+        if (curr.map.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     /** Returns the longest prefix of KEY that exists in the Trie
      * Not required for Lab 9. If you don't implement this, throw an

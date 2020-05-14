@@ -96,7 +96,7 @@ public class Boggle {
         if (dict.contains(currentString) && currentString.length() >= 3) {
             strings.insert(currentString);
         }
-        if (dict.keysWithPrefix(currentString).isEmpty()
+        if (!dict.hasPrefix(currentString)
                 || unmarkedNeighbor(x, y, currentMarked).isEmpty()) {
             return;
         }
