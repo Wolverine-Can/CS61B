@@ -1,4 +1,4 @@
-import edu.princeton.cs.algs4.MaxPQ;
+import edu.princeton.cs.algs4.MinPQ;
 import java.io.File;
 import java.util.*;
 
@@ -9,7 +9,8 @@ public class Boggle {
     private static char[][]charBoard;
     private static Boolean[][] marked;
     private static MyTrieSet dict = new MyTrieSet();
-    private static MaxPQ<String> strings;
+    private static MinPQ<String> strings;
+    private static int NofStr;
 
     /**
      * Solves a Boggle puzzle.
@@ -22,6 +23,7 @@ public class Boggle {
      *         have them in ascending alphabetical order.
      */
     public static List<String> solve(int k, String boardFilePath) {
+        NofStr = k;
         if (k <= 0) {
             throw new IllegalArgumentException("k must be positive");
         }
@@ -41,8 +43,8 @@ public class Boggle {
                 return -i.compareTo(j);
             }
         };
-        strings = new MaxPQ<>(compareString);
-        List<String> result = new LinkedList<>();
+        strings = new MinPQ<>(compareString);
+        LinkedList<String> result = new LinkedList<>();
 
 
         String[] board = new In(boardFilePath).readAllStrings();
@@ -70,20 +72,12 @@ public class Boggle {
             }
         }
 
-        String topStr;
-        String preStr = "";
-        for (int i = 0; i < k;) {
+        for (int i = 0; i < NofStr;) {
             if (strings.isEmpty()) {
                 break;
             }
-            topStr = strings.delMax();
-            if (!topStr.equals(preStr)) {
-                result.add(topStr);
-                preStr = topStr;
-                i += 1;
-            }
+            result.addFirst(strings.delMin());
         }
-
         return result;
     }
     private static void findString(String prev, Boolean[][] nowMarked, int x, int y) {
@@ -93,8 +87,11 @@ public class Boggle {
         }
         String currentString = prev + charBoard[x][y];
         currentMarked[x][y] = true;
-        if (dict.contains(currentString) && currentString.length() >= 3) {
+        if (dict.contains(currentString) && currentString.length() >= 3 && noRepetition(currentString)) {
             strings.insert(currentString);
+            if (strings.size() > NofStr) {
+                strings.delMin();
+            }
         }
         if (!dict.hasPrefix(currentString)
                 || unmarkedNeighbor(x, y, currentMarked).isEmpty()) {
@@ -103,6 +100,15 @@ public class Boggle {
         for (int[] next: unmarkedNeighbor(x, y, currentMarked)) {
             findString(currentString, currentMarked, next[0], next[1]);
         }
+    }
+
+    private static Boolean noRepetition(String a) {
+        for (String b : strings) {
+            if (a.equals(b)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 

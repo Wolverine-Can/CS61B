@@ -19,4 +19,12 @@ public class test {
             System.out.println(s);
         }
     }
+    @Test
+    public void test3() {
+        Boggle.dictPath = "words.txt";
+        List<String> a = Boggle.solve(7, "smallBoard.txt");
+        for (String s : a) {
+            System.out.println(s);
+        }
+    }
 }
